@@ -18,4 +18,25 @@ export default function WorkoutCard({ workout }) {
     );
 }
 
-//INSERT STYLES HERE
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: '#f5f5f5',
+        padding: 15,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#000000',
+    },
+    name: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    details: {
+        fontSize: 14,
+        color: '#6f6f6f',
+    },
+    notes: {
+        fontSize: 14,
+        color: '#6f6f6f',
+    },
+});
