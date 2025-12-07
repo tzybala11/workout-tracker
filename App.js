@@ -23,15 +23,15 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
       <Stack.Navigator>
-        <Stack.Screen name="Home">
+        <Stack.Screen name='Home'>
           {(props) => (
             <HomeScreen {...props} workouts={workouts} />
           )}
         </Stack.Screen>
 
-        <Stack.Screen name="NewWorkout">
+        <Stack.Screen name='NewWorkout'>
           {(props) => (
             <NewWorkout {...props} addWorkout={addWorkout} />
           )}
