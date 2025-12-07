@@ -8,11 +8,23 @@ import {
     Alert,
 } from 'react-native';
 
-export default function AddNewWorkout({ navigation, addWorkout }) {
+export default function AddNewWorkout({ navigation, route, addWorkout, editWorkout }) {
     const [name, setName] = useState('');
     const [type, setType] = useState('');
     const [duration, setDuration] = useState('');
     const [notes, setNotes] = useState('');
+
+    const isEditing = route.params?.mode === 'edit';
+    const existingWorkout = route.params?.workout;
+
+    React.useEffect(() => {
+        if (isEditing && existingWorkout) {
+            setName(existingWorkout.name);
+            setType(existingWorkout.type);
+            setDuration(String(existingWorkout.duration));
+            setNotes(existingWorkout.notes);
+        }
+    }, []);
 
     const handleSave = () => {
         if (!name.trim() || !duration.trim()) {
@@ -26,17 +38,19 @@ export default function AddNewWorkout({ navigation, addWorkout }) {
             return;
         }
 
-        addWorkout({
+        const workoutData = {
             name: name.trim(),
             type: type.trim(),
             duration: durationNumber,
             notes: notes.trim(),
-        });
+        };
 
-        setName('');
-        setType('');
-        setDuration('');
-        setNotes('');
+        if (isEditing) {
+            editWorkout(existingWorkout.id, workoutData);
+        } else {
+            addWorkout(workoutData);
+        }
+
         navigation.goBack();
     };
 
@@ -86,7 +100,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#ffffff',
     },
     title: {
         fontSize: 30,
@@ -99,9 +113,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     input: {
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#ffffff',
         borderWidth: 2,
-        borderColor: '#000000',
         borderRadius: 10,
         paddingHorizontal: 10,
         paddingVertical: 5,
@@ -119,7 +132,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     saveButtonText: {
-        color: '#f5f5f5',
+        color: '#ffffff',
         fontSize: 16,
         fontWeight: '600',
     },

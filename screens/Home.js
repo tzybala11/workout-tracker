@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import WorkoutCard from '../components/WorkoutCard';
 
-export default function Home({ navigation, workouts }) {
+export default function Home({ navigation, workouts, deleteWorkout, editWorkout }) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Workout Tracker</Text>
@@ -27,7 +27,14 @@ export default function Home({ navigation, workouts }) {
                 <FlatList
                     data={workouts}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <WorkoutCard workout={item} />}/>
+                    renderItem={({ item }) => (
+                    <WorkoutCard
+                    workout={item}
+                    deleteWorkout={deleteWorkout}
+                    editWorkout={editWorkout}
+                    navigation={navigation}/>
+                    )}
+                />
             )}
         </View>
     );
@@ -37,7 +44,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#ffffff',
     },
     title: {
         fontSize: 30,
@@ -49,13 +56,12 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 10,
-        borderColor: '#000000',
         borderWidth: 2,
         alignSelf: 'flex-start',
         marginBottom: 20,
     },
     addButtonText: {
-        color: '#f5f5f5',
+        color: '#ffffff',
         fontSize: 16,
         fontWeight: '600',
     },

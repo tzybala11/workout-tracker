@@ -21,19 +21,36 @@ export default function App() {
     ]);
   };
 
+  const editWorkout = (id, updatedWorkout) => {
+    setWorkouts((current) =>
+      current.map((workout) => (workout.id === id ? { ...workout, ...updatedWorkout } : workout))
+    );
+  };
+
+  const deleteWorkout = (id) => {
+    setWorkouts((current) => current.filter((workout) => workout.id !== id));
+  };
+
   return (
     <NavigationContainer>
       <StatusBar style='auto' />
       <Stack.Navigator>
         <Stack.Screen name='Home'>
           {(props) => (
-            <HomeScreen {...props} workouts={workouts} />
+            <HomeScreen
+            {...props}
+            workouts={workouts}
+            deleteWorkout={deleteWorkout}
+            editWorkout={editWorkout}/>
           )}
         </Stack.Screen>
 
         <Stack.Screen name='NewWorkout'>
           {(props) => (
-            <NewWorkout {...props} addWorkout={addWorkout} />
+            <NewWorkout
+              {...props}
+              addWorkout={addWorkout}
+              editWorkout={editWorkout}/>
           )}
         </Stack.Screen>
       </Stack.Navigator>
