@@ -32,3 +32,5 @@ export default function Home({ navigation, workouts }) {
         </View>
     );
 }
+
+//INSERT STYLES HERE
